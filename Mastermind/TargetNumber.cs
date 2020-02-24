@@ -5,35 +5,39 @@ namespace Mastermind
 {
     public class TargetNumber
     {
-        private int[] GeneratedNumber { get; }
-        public const int SequenceLength = 4;
-        public const int NumberMax = 6;
-        public const int NumberMin = 1;
+        private int[] generatedNumber;
+        private int sequenceLength = 4;
+        private int numberMax = 6;
+        private int numberMin = 1;
 
-        private TargetNumber()
+        public TargetNumber(int sLength, int nMax, int nMin)
         {
+            sequenceLength = sLength;
+            numberMax = nMax;
+            numberMin = nMin;
+
             var r = new Random();
 
-            GeneratedNumber = new int[SequenceLength];
+            generatedNumber = new int[sequenceLength];
 
-            for (var i = 0; i < SequenceLength; i++)
+            for (var i = 0; i < sequenceLength; i++)
             {
-                GeneratedNumber[i] = r.Next(NumberMin, NumberMax + 1);
+                generatedNumber[i] = r.Next(numberMin, numberMax + 1);
             }
         }
 
         public PositionFeedback CheckDigit(int position, int number)
         {
-            if(position >= SequenceLength || position < 0 || number > NumberMax || number < NumberMin)
+            if (position >= sequenceLength || position < 0 || number > numberMax || number < numberMin)
             {
                 throw new ArgumentException("Invalid position " + position.ToString());
             }
 
-            if(GeneratedNumber[position] == number)
+            if (generatedNumber[position] == number)
             {
                 return PositionFeedback.Correct;
             }
-            else if (GeneratedNumber.Contains(number))
+            else if (generatedNumber.Contains(number))
             {
                 return PositionFeedback.Contains;
             }
@@ -41,11 +45,6 @@ namespace Mastermind
             {
                 return PositionFeedback.None;
             }
-        }
-
-        public static TargetNumber CreateNew()
-        {
-            return new TargetNumber();
         }
     }
 }

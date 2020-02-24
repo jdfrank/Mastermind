@@ -7,6 +7,10 @@ namespace Mastermind
     public class Game
     {
         public const int Attempts = 10;
+        public const int NumberMax = 6;
+        public const int NumberMin = 1;
+        public const int SequenceLength = 4;
+
         public int RemainingAttempts { get; private set; }
         public bool IsWon { get; private set;}
 
@@ -20,7 +24,7 @@ namespace Mastermind
             RemainingAttempts = Attempts;
             IsWon = false;
             currentResults = new List<PositionFeedback>();
-            targetNumber = TargetNumber.CreateNew();
+            targetNumber = new TargetNumber(SequenceLength, NumberMax, NumberMin);
             messages = new List<string>();
         }
 
@@ -95,9 +99,9 @@ namespace Mastermind
             {
                 l.Add("Input is too short, must be 4 numbers!");
             }
-            else if (guess.Any(x => x < '0' || x > '9'))
+            else if (guess.Any(x => x < '1' || x > '6'))
             {
-                l.Add("Numbers only!");
+                l.Add("Numbers between 1 and 6 only!");
             }
 
             return l;

@@ -12,9 +12,10 @@ namespace Mastermind
             // won't compile, that's good
             //var tn = new TargetNumber();
 
-            var tn = TargetNumber.CreateNew();
+            var tn = new TargetNumber(4,1,6);
+            //4, 1, 6);
 
-            // position too low
+            //position too low
             Assert.ThrowsException<ArgumentException>(() => tn.CheckDigit(-1, 4));
 
             // position too high
